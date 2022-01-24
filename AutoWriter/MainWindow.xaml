@@ -1,0 +1,62 @@
+﻿<Window x:Class="AutoWriter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoWriter"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="390" Width="410"
+        MinHeight="390"
+        MinWidth="410">
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+        </Style>
+        <LinearGradientBrush x:Key="GrayBlueGradientBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="DarkGray" Offset="0" />
+            <GradientStop Color="#CCCCFF" Offset="0.5" />
+            <GradientStop Color="DarkGray" Offset="1" />
+        </LinearGradientBrush>
+    </Window.Resources>
+    <Grid>
+        <Grid.Resources>
+            
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.35*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Background="DarkSlateGray" BorderBrush="LightGray" BorderThickness="0,0,0,2"></Border>
+        <Label Foreground="WhiteSmoke" FontFamily="Cascadia Code" FontStyle="Italic" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" FontSize="21">Auto Writer 0.1</Label>
+        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="3" Background="LightSlateGray" ></Border>
+
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+            <Label FontSize="18" Foreground="White">Select process name:</Label>
+            <TextBox Margin="6 0 6 0" Padding="2" FontSize="16"></TextBox>
+            <Button FontSize="14" Margin="6 6 6 0" Padding="4" Background="{StaticResource GrayBlueGradientBrush}" Click="Button_Click">Select</Button>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="1">
+            <Label></Label>
+        </StackPanel>
+
+        <TextBox Background="LightGray" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" TextWrapping="Wrap"  Padding="5" Margin="10" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2"/>
+
+        <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+            
+            <Label>Status:</Label>
+            <Label Foreground="RED">OFF</Label>
+        </StackPanel>
+       
+    </Grid>
+</Window>
