@@ -41,6 +41,18 @@ namespace AutoWriter
             }
         }
 
+        private int FindValue(char sym)
+        {
+            for (int i = 0; i < symbols.Count; i++)
+            {
+                if(symbols[i].symbol == sym)
+                {
+                    return symbols[i].value;
+                }
+            }
+            throw new ArgumentOutOfRangeException("Not finded");
+        }
+
         public void SendMessage(string message, Process[] processes)
         {
             if (processes.Length == 0)
@@ -49,7 +61,24 @@ namespace AutoWriter
             }
             else
             {
-                //foreach(var procces in )
+                foreach(var process in processes)
+                {
+                    int keyCode = 0;
+                    for(int i = 0; i < message.Length; i++)
+                    {
+                        try
+                        {
+                            keyCode = FindValue(message[i]);
+                            PostMessage(process.MainWindowHandle, WM_KEYDOWN, keyCode, 0);
+                        }
+                        catch(Exception e)
+                        {
+                            System.Windows.MessageBox.Show($"Symbol {message[i]} not finded. Only english letter is allowed!\r\nSymbol skipped","Error");
+                        }
+                        
+                    }
+                    PostMessage(process.MainWindowHandle, WM_KEYDOWN, VK_RETURN, 0);
+                }
             }
         }
 
