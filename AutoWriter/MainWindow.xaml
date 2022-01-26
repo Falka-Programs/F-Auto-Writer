@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="390" Width="410"
         MinHeight="390"
-        MinWidth="410">
+        MinWidth="410"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style TargetType="Label">
@@ -19,6 +20,70 @@
             <GradientStop Color="#CCCCFF" Offset="0.5" />
             <GradientStop Color="DarkGray" Offset="1" />
         </LinearGradientBrush>
+
+        <RadialGradientBrush x:Key ="RadialStartBrush" GradientOrigin="0.5 0.5">
+            <GradientStop Color="LightCoral" Offset="0.5" />
+            <GradientStop Color="#AA67D5" Offset="1" />
+        </RadialGradientBrush>
+
+        <RadialGradientBrush x:Key ="RadialStartBrushPressed" GradientOrigin="0.5 0.5">
+            <GradientStop Color="DarkMagenta" Offset="1"/>
+            <GradientStop Color="LightCoral" Offset="0.5"/>
+        </RadialGradientBrush>
+
+        <Style TargetType="Button" x:Key="MyButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        BorderThickness="1"
+                        Padding="4,2" 
+                        BorderBrush="DarkGray" 
+                        CornerRadius="3" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" x:Key="RadialBrushTrigger">
+            <Style.Setters>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Button.Background" Value="{StaticResource RadialStartBrush}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="border" 
+                        BorderThickness="1"
+                        Padding="4,2" 
+                        BorderBrush="DarkGray" 
+                        CornerRadius="3" 
+                        Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    
+                    <Setter Property="Button.Background" Value="{StaticResource RadialStartBrushPressed}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
     </Window.Resources>
     <Grid>
         <Grid.Resources>
@@ -36,27 +101,66 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
+        <!--Logo section-->
         <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Background="DarkSlateGray" BorderBrush="LightGray" BorderThickness="0,0,0,2"></Border>
         <Label Foreground="WhiteSmoke" FontFamily="Cascadia Code" FontStyle="Italic" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" FontSize="21">Auto Writer 0.1</Label>
         <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="3" Background="LightSlateGray" ></Border>
+        <!---->
 
+        <!--Procces selector panel-->
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
-            <Label FontSize="18" Foreground="White">Select process name:</Label>
-            <TextBox Margin="6 0 6 0" Padding="2" FontSize="16"></TextBox>
-            <Button FontSize="14" Margin="6 6 6 0" Padding="4" Background="{StaticResource GrayBlueGradientBrush}" Click="Button_Click">Select</Button>
+            <Label FontSize="14" Foreground="White">Select process name:</Label>
+            <TextBox x:Name="ProccesTextBox" Margin="6 0 6 0" Padding="2" FontSize="16"/>
+            <Button Style="{StaticResource MyButtonStyle}" FontSize="14" Margin="6 6 6 0" Padding="4" Background="{StaticResource GrayBlueGradientBrush}" Click="Button_Click">Select</Button>
         </StackPanel>
-
+        <!---->
+        
+        <!--Timeout and file selection panel-->
         <StackPanel Grid.Column="2" Grid.Row="1">
-            <Label></Label>
+            <Label FontSize="14">Select timeout</Label>
+            <TextBox Margin="6 0 6 0" Padding="2" FontSize="16" Text="{Binding Timeout, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button x:Name="FileSelectButton" Click="FileSelectButton_Click"  Margin="0 5 0 5" FontSize="16" Style="{StaticResource MyButtonStyle}" Background="{StaticResource GrayBlueGradientBrush}">Select file</Button>
         </StackPanel>
 
-        <TextBox Background="LightGray" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" TextWrapping="Wrap"  Padding="5" Margin="10" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2"/>
+        <!--Start panel-->
+        <StackPanel VerticalAlignment="Center" Grid.Column="3" Grid.Row="1">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="5"/>
+                </Style>
+            </StackPanel.Resources>
+            <Button FontSize="16" Style="{StaticResource RadialBrushTrigger}">Start</Button>
+        </StackPanel>
+        <!---->
 
+        <!--Phrases demo textBox-->
+        <TextBox Background="LightGray" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" TextWrapping="Wrap"  Padding="5" Margin="10" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2"/>
+        <!---->
+
+        <!-- BOTTOM INFO SECTION-->
         <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
             
             <Label>Status:</Label>
             <Label Foreground="RED">OFF</Label>
         </StackPanel>
-       
+        
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal">
+            <Label>TimeOut:</Label>
+            <Label Foreground="DarkMagenta" Content="{Binding Timeout, UpdateSourceTrigger=PropertyChanged}">
+                <Label.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Width="100">
+                            <TextBlock Text="{Binding}"/>
+                            <TextBlock Text=" secounds"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Label.ContentTemplate>
+            </Label>
+        </StackPanel>
+
+        <StackPanel Grid.Column="3" Grid.Row="3" Orientation="Horizontal">
+            <Label>Procces:</Label>
+            <Label x:Name="processCountLabel" Foreground="Yellow">NS</Label>
+        </StackPanel>
     </Grid>
 </Window>
