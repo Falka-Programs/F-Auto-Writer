@@ -8,28 +8,52 @@ using System.Threading.Tasks;
 
 using WindowsInput.Native;
 using WindowsInput;
+using System.Threading;
 
 namespace AutoWriter
 {
     
     public class MessageSender
     {
-        [DllImport("user32.dll")]
+        List<String> messages = new List<String>();
+        int timeout = 0;
+        Process[] processes;
+
+       [DllImport("user32.dll")]
         private static extern int SetForegroundWindow(IntPtr hWnd);
 
         InputSimulator sim = new InputSimulator();
 
-        public void SendMessage(string message, Process[] processes)
+        private void ThreadMethod()
         {
+            for (int i = 0; i < messages.Count; i++)
+            {
+                SendMessage(messages[i], processes);
+                Thread.Sleep(timeout * 1000);
+            }
+        }
 
+        public void SendMessages(List<String> mes,int tim,Process[] proc)
+        {
+            processes = proc;
+            messages = mes;
+            timeout = tim;
+            Thread thread1 = new Thread(new ThreadStart(ThreadMethod));
+            thread1.IsBackground = true;
+            thread1.Start();
+        }
+
+        public void SendMessage(string message, Process[] proc)
+        {
+            
             message = message.ToUpper();
 
-            if (processes.Length == 0) 
+            if (proc.Length == 0) 
                 throw new ArgumentException("Wrong processes");
             else
             {
                 // Console.WriteLine(processes.Length);
-                Process process = processes[0];
+                Process process = proc[0];
                 //foreach(var process in processes)
                 //{
 
@@ -37,11 +61,17 @@ namespace AutoWriter
                 {
                     try
                     {
+                        
+                        if(message[i] == '\n' || message[i] == '\r') { continue; }
+                        if(message[i]==' ')
+                        {
+                            sim.Keyboard.KeyPress(VirtualKeyCode.SPACE);
+                            continue;
+                        }
                             SetForegroundWindow(process.MainWindowHandle);
                             sim.Keyboard.KeyPress((VirtualKeyCode)FindValue(message[i]));
-                        // Console.WriteLine("MEssage posted!");
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         System.Windows.MessageBox.Show($"Symbol {message[i]} not finded. Only english letter is allowed!\r\nSymbol skipped", "Error");
                     }
@@ -69,12 +99,13 @@ namespace AutoWriter
         private void FillSymbols()
         {
             symbols = new List<SymbolInVm>();
-            char[] alph = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+            char[] alph = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
             int temp = 65;
             for (int i = 0; i < alph.Length; i++)
             {
                 symbols.Add(new SymbolInVm(alph[i], temp++));
             }
+            symbols.Add(new SymbolInVm('?', 63));
         }
 
         private int FindValue(char sym)
@@ -84,7 +115,7 @@ namespace AutoWriter
 
                 if (symbols[i].symbol == sym)
                 {
-                    Console.WriteLine($"VALUE SENDED {sym}");
+                   // Console.WriteLine($"VALUE SENDED {sym}");
                     return symbols[i].value;
                 }
             }

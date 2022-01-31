@@ -129,19 +129,19 @@
                     <Setter Property="Margin" Value="5"/>
                 </Style>
             </StackPanel.Resources>
-            <Button FontSize="16" Style="{StaticResource RadialBrushTrigger}">Start</Button>
+            <Button x:Name="StartButton" Click="StartButton_Click" FontSize="16" Style="{StaticResource RadialBrushTrigger}">Start</Button>
         </StackPanel>
         <!---->
 
         <!--Phrases demo textBox-->
-        <TextBox Background="LightGray" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" TextWrapping="Wrap"  Padding="5" Margin="10" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2"/>
+        <TextBox x:Name="PhrasesTextBox" Background="LightGray" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" TextWrapping="Wrap"  Padding="5" Margin="10" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2"/>
         <!---->
 
         <!-- BOTTOM INFO SECTION-->
         <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
             
             <Label>Status:</Label>
-            <Label Foreground="RED">OFF</Label>
+            <Label Name="StatusLabel" Foreground="RED">OFF</Label>
         </StackPanel>
         
         <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal">
