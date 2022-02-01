@@ -1,7 +1,0 @@
-C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\obj\Debug\MessageSenderLibrary.csproj.CoreCompileInputs.cache
-C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\bin\Debug\MessageSenderLibrary.dll
-C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\bin\Debug\MessageSenderLibrary.pdb
-C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\bin\Debug\WindowsInput.dll
-C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\bin\Debug\WindowsInput.xml
-C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\obj\Debug\MessageSenderLibrary.dll
-C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\obj\Debug\MessageSenderLibrary.pdb
