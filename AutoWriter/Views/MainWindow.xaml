@@ -8,7 +8,8 @@
         Title="MainWindow" Height="390" Width="410"
         MinHeight="390"
         MinWidth="410"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Icon="../Icons/favicon.ico">
 
     <Window.Resources>
         <Style TargetType="Label">

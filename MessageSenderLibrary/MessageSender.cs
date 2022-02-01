@@ -12,14 +12,14 @@ using System.Threading;
 
 namespace AutoWriter
 {
-    
+
     public class MessageSender
     {
         List<String> messages = new List<String>();
         int timeout = 0;
         Process[] processes;
 
-       [DllImport("user32.dll")]
+        [DllImport("user32.dll")]
         private static extern int SetForegroundWindow(IntPtr hWnd);
 
         InputSimulator sim = new InputSimulator();
@@ -33,7 +33,7 @@ namespace AutoWriter
             }
         }
 
-        public void SendMessages(List<String> mes,int tim,Process[] proc)
+        public void SendMessages(List<String> mes, int tim, Process[] proc)
         {
             processes = proc;
             messages = mes;
@@ -45,10 +45,10 @@ namespace AutoWriter
 
         public void SendMessage(string message, Process[] proc)
         {
-            
+
             message = message.ToUpper();
 
-            if (proc.Length == 0) 
+            if (proc.Length == 0)
                 throw new ArgumentException("Wrong processes");
             else
             {
@@ -61,19 +61,21 @@ namespace AutoWriter
                 {
                     try
                     {
-                        
-                        if(message[i] == '\n' || message[i] == '\r') { continue; }
-                        if(message[i]==' ')
+
+                        if (message[i] == '\n' || message[i] == '\r') { continue; }
+                        if (message[i] == ' ')
                         {
                             sim.Keyboard.KeyPress(VirtualKeyCode.SPACE);
                             continue;
                         }
-                            SetForegroundWindow(process.MainWindowHandle);
-                            sim.Keyboard.KeyPress((VirtualKeyCode)FindValue(message[i]));
+                        SetForegroundWindow(process.MainWindowHandle);
+                        sim.Keyboard.KeyPress((VirtualKeyCode)FindValue(message[i]));
                     }
-                    catch (Exception)
+                    catch (Exception err)
                     {
-                        System.Windows.MessageBox.Show($"Symbol {message[i]} not finded. Only english letter is allowed!\r\nSymbol skipped", "Error");
+#if DEBUG
+                        Console.WriteLine($"{err.Message}");
+#endif
                     }
 
                 }
@@ -93,13 +95,13 @@ namespace AutoWriter
             }
         }
 
-        
 
-              private List<SymbolInVm> symbols;
+
+        private List<SymbolInVm> symbols;
         private void FillSymbols()
         {
             symbols = new List<SymbolInVm>();
-            char[] alph = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+            char[] alph = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
             int temp = 65;
             for (int i = 0; i < alph.Length; i++)
             {
@@ -115,14 +117,14 @@ namespace AutoWriter
 
                 if (symbols[i].symbol == sym)
                 {
-                   // Console.WriteLine($"VALUE SENDED {sym}");
+                    // Console.WriteLine($"VALUE SENDED {sym}");
                     return symbols[i].value;
                 }
             }
             throw new ArgumentOutOfRangeException("Not finded");
         }
 
-        
+
 
         public MessageSender()
         {
