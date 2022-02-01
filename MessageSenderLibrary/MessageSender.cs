@@ -18,6 +18,7 @@ namespace AutoWriter
         List<String> messages = new List<String>();
         int timeout = 0;
         Process[] processes;
+        Thread workThread;
 
         [DllImport("user32.dll")]
         private static extern int SetForegroundWindow(IntPtr hWnd);
@@ -26,10 +27,17 @@ namespace AutoWriter
 
         private void ThreadMethod()
         {
-            for (int i = 0; i < messages.Count; i++)
+            try
             {
-                SendMessage(messages[i], processes);
-                Thread.Sleep(timeout * 1000);
+                for (int i = 0; i < messages.Count; i++)
+                {
+                    SendMessage(messages[i], processes);
+                    Thread.Sleep(timeout * 1000);
+                }
+            }
+            catch (ThreadAbortException)
+            {
+                return;
             }
         }
 
@@ -38,11 +46,14 @@ namespace AutoWriter
             processes = proc;
             messages = mes;
             timeout = tim;
-            Thread thread1 = new Thread(new ThreadStart(ThreadMethod));
-            thread1.IsBackground = true;
-            thread1.Start();
+            workThread = new Thread(new ThreadStart(ThreadMethod));
+            workThread.IsBackground = true;
+            workThread.Start();
         }
-
+        public void StopSending()
+        {
+            workThread.Abort();
+        }
         public void SendMessage(string message, Process[] proc)
         {
 

@@ -3,6 +3,6 @@ C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\bin\Release\MessageS
 C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\bin\Release\WindowsInput.dll
 C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\bin\Release\WindowsInput.xml
 C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\obj\Release\MessageSenderLibrary.csproj.CoreCompileInputs.cache
-C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\obj\Release\MessageSenderLibrary.csproj.CopyComplete
 C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\obj\Release\MessageSenderLibrary.dll
 C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\obj\Release\MessageSenderLibrary.pdb
+C:\Users\vsh15\source\repos\AutoWriter\MessageSenderLibrary\obj\Release\MessageSenderLibrary.csproj.AssemblyReference.cache

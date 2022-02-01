@@ -130,7 +130,8 @@
                     <Setter Property="Margin" Value="5"/>
                 </Style>
             </StackPanel.Resources>
-            <Button x:Name="StartButton" Click="StartButton_Click" FontSize="16" Style="{StaticResource RadialBrushTrigger}">Start</Button>
+            <Button x:Name="StartButton" Click="StartButton_Click" Margin="2" FontSize="16" Style="{StaticResource RadialBrushTrigger}">Start</Button>
+            <Button x:Name="StopButton" Click="StopButton_Click" Margin="2" FontSize="16" Style="{StaticResource RadialBrushTrigger}" IsEnabled="False">Stop</Button>
         </StackPanel>
         <!---->
 

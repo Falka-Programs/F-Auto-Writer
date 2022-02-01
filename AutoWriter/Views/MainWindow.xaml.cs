@@ -38,9 +38,9 @@ namespace AutoWriter
             }
             set
             {
-                if (value < 0 || value > 3000)
+                if (value <= 0 || value >= 3000)
                 {
-                    MessageBox.Show("Wrong value.\r\n Value must be beetwen 5 and 3000","Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Wrong value.\r\n Value must be beetwen 0 and 3000","Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else
                 {
@@ -157,11 +157,22 @@ namespace AutoWriter
                     ms.SendMessages(messages, Timeout, Processes);
                     StatusLabel.Content = "ON";
                     StatusLabel.Foreground = Brushes.LightGreen;
+                    StartButton.IsEnabled = false;
+                    StopButton.IsEnabled = true;
                 }catch(Exception err)
                 {
                     MessageBox.Show($"Error\r\n{err.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+            StartButton.IsEnabled = true;
+            StopButton.IsEnabled = false;
+            ms.StopSending();
+            StatusLabel.Content = "OFF";
+            StatusLabel.Foreground = Brushes.Red;
         }
     }
 }
