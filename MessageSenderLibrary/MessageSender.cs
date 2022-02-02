@@ -15,6 +15,7 @@ namespace AutoWriter
 
     public class MessageSender
     {
+        public readonly static float version = 1.0f;
         List<String> messages = new List<String>();
         int timeout = 0;
         Process[] processes;

@@ -19,7 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Threading;
-namespace AutoWriter
+namespace AutoWriter.Views
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -27,6 +27,7 @@ namespace AutoWriter
     /// 
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public static readonly float version = 0.2f;
         MessageSender ms;
         Process[] Processes { get; set; }
         List<string> messages;
@@ -173,6 +174,22 @@ namespace AutoWriter
             ms.StopSending();
             StatusLabel.Content = "OFF";
             StatusLabel.Foreground = Brushes.Red;
+        }
+
+        private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void UpdatesCheckMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("In development...","Information",MessageBoxButton.OK,MessageBoxImage.Information);
+        }
+        private void AboutMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            AboutWindow aw = new AboutWindow(version,MessageSender.version);
+            aw.Owner = this;
+            aw.ShowDialog();
         }
     }
 }
