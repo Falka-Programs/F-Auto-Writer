@@ -168,7 +168,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="3" Grid.Row="4" Orientation="Horizontal">
-            <Label>Procces:</Label>
+            <Label>Process:</Label>
             <Label x:Name="processCountLabel" Foreground="Yellow">NS</Label>
         </StackPanel>
     </Grid>
